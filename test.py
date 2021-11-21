@@ -1,5 +1,5 @@
 import argparse
-
+import gc
 import torch
 import cv2
 import numpy as np
@@ -49,6 +49,8 @@ def test(args):
             out = np.clip(out, 0, 255).astype(np.uint8)
             
         cv2.imwrite(os.path.join(args.output_dir, image_name), cv2.cvtColor(out, cv2.COLOR_BGR2RGB))
+        del out
+        gc.collect()        
         print(f"image saved: {image_name}")
 
     
